@@ -117,21 +117,13 @@
   set image(height: 20%)
 
   // figure 样式
-  show figure: it => {
-    let pos = bottom
-    let sup = auto
-
-    if it.kind == image {
-      sup = "图"
-    } else if it.kind == table {
-      sup = "表"
-      pos = top
-    }
-
-    set figure(supplement: sup)
-    set figure.caption(separator: "：", position: pos)
-    pad(y: 0.5em, it)
+  show figure.where(kind: image): set figure(supplement: "图")
+  show figure.where(kind: table): {
+    set figure(supplement: "表")
+    set figure.caption(position: top)
   }
+
+  show figure: pad.with(y: 0.5em)
 
   // 目录标题
   set outline(title: "目录")
