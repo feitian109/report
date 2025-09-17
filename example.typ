@@ -9,10 +9,14 @@
 
 #let item(k, v) = terms.item(k, u(v))
 
+// 设置实验日期
+#let date = datetime.today()
+
+// 设置课程和个人信息
 #grid(
   columns: (1fr, 1fr, 1fr),
   row-gutter: 1.5em,
-  item("课程名称", "最优化理论与方法"), [], item("实验日期", datetime.today().display()),
+  item("课程名称", "最优化理论与方法"), [], item("实验日期", date.display()),
   item("班级", "placeholder"), item("姓名", "placeholder"), item("学号", "placeholder"),
 )
 
