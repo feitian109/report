@@ -141,10 +141,11 @@
 #let p(it) = {
   set par(first-line-indent: (amount: 2em, all: true))
 
-  // 列表和代码块添加缩进
+  // 为列表、代码等添加缩进
   let indent = block.with(inset: (left: 2em))
   show enum: indent
   show list: indent
+  show terms: indent
   show raw.where(block: true): indent
   it
 }
