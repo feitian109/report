@@ -23,10 +23,10 @@
 )
 
 #let 字体 = (
-  宋体: ((name: "Times New Roman", covers: "latin-in-cjk"), "SimSun"),
+  宋体: ((name: "libertinus serif", covers: "latin-in-cjk"), "SimSun"),
   黑体: ((name: "Arial", covers: "latin-in-cjk"), "SimHei"),
-  楷体: ((name: "Times New Roman", covers: "latin-in-cjk"), "KaiTi"),
-  仿宋: ((name: "Times New Roman", covers: "latin-in-cjk"), "FangSong"),
+  楷体: ((name: "libertinus serif", covers: "latin-in-cjk"), "KaiTi"),
+  仿宋: ((name: "libertinus serif", covers: "latin-in-cjk"), "FangSong"),
   等宽: (
     (name: "Monaspace Neon", covers: "latin-in-cjk"),
     (name: "Consolas", covers: "latin-in-cjk"),
@@ -68,7 +68,7 @@
   // 字体
   set text(font: 字体.宋体, size: 字号.小四, lang: "zh")
   show raw: set text(font: 字体.等宽)
-  show raw.where(block: true): set text(size: 10pt)
+  show raw.where(block: true): set text(size: 9pt)
 
   // 页面
   set page(
