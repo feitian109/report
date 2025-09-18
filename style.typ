@@ -66,7 +66,7 @@
   )
 
   // 字体
-  set text(font: 字体.宋体, size: 字号.小四)
+  set text(font: 字体.宋体, size: 字号.小四, lang: "zh")
   show raw: set text(font: 字体.等宽)
   show raw.where(block: true): set text(size: 10pt)
 
@@ -120,13 +120,13 @@
   set image(height: 20%)
 
   // figure 样式
-  show figure.where(kind: image): set figure(supplement: "图")
   show figure.where(kind: table): {
-    set figure(supplement: "表")
     set figure.caption(position: top)
   }
 
-  show figure: pad.with(y: 0.5em)
+  // 设置 supplement 和 body间隔符
+  set figure.caption(separator: "  ")
+  show figure: pad.with(y: 0.3em)
 
   // 目录标题
   set outline(title: "目录")
