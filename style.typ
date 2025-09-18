@@ -1,5 +1,6 @@
 #import "@preview/cuti:0.3.0": show-cn-fakebold
 #import "@preview/codly:1.3.0": *
+#import "@preview/i-figured:0.2.4"
 
 #let 字号 = (
   初号: 42pt,
@@ -38,6 +39,8 @@
   // 第三方包
   show: show-cn-fakebold
   show: codly-init.with()
+  show figure: i-figured.show-figure.with(numbering: "1-1")
+  show math.equation.where(block: true): i-figured.show-equation.with(numbering: "(1-1)")
 
   // 辅助函数
   let array-at(arr, pos) = {
