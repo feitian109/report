@@ -138,8 +138,8 @@
 }
 
 // 缩进段落
-#let p(it) = {
-  set par(first-line-indent: (amount: 2em, all: true))
+#let p(it, all: true) = {
+  set par(first-line-indent: (amount: 2em, all: all))
 
   // 为列表、代码等添加缩进
   let indent = block.with(inset: (left: 2em))
