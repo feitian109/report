@@ -1,7 +1,7 @@
 #import "style.typ": *
 #show: style
 
-#set document(title: "最优化理论与方法实验报告", author: "作者", description: "基于神经网络的房价预测建模与优化分析")
+#set document(title: "最优化理论与方法实验报告", author: "✕✕✕", description: "基于神经网络的房价预测建模与优化分析")
 
 #title[基于神经网络的房价预测建模与优化分析]
 
@@ -15,9 +15,9 @@
 // 设置课程和个人信息
 #grid(
   columns: (1fr, 1fr, 1fr),
-  row-gutter: 1.5em,
+  row-gutter: 1em,
   item("课程名称", "最优化理论与方法"), [], item("实验日期", date.display()),
-  item("班级", "placeholder"), item("姓名", "placeholder"), item("学号", "placeholder"),
+  item("班级", "✕✕✕✕"), item("姓名", "✕✕✕"), item("学号", "✕✕✕✕✕"),
 )
 
 #outline()
@@ -29,15 +29,12 @@
 
 == 具体要求
 #p[
-  1.使用包含*1个隐藏层*的神经网络：
-
+  1.使用包含1个隐藏层的神经网络：
   ```
   输入层(根据特征确定) → 隐藏层(确定隐层神经元数, Sigmoid或者ReLU隐函数) → 输出层(1, Linear)
   ```
-
-  2. 实现基于梯度下降及其改进的*反向传播算法*训练网络
-
-  3. *禁止使用TensorFlow/PyTorch等框架*（仅允许使用`numpy`）
+  2. 实现基于梯度下降及其改进的反向传播算法训练网络
+  3. 禁止使用TensorFlow/PyTorch等框架（仅允许使用`numpy`）
 ]
 
 = 实验任务
@@ -57,7 +54,7 @@ print(y.shape)
 (506, 13)
 (506, 1)
 ```
-于是可以搭建一个有*13个输入，1个输出的神经网络，要求只有一层隐藏层，于是我设定了隐藏层拥有10个神经元*。
+于是可以搭建一个有13个输入，1个输出的神经网络，要求只有一层隐藏层，于是我设定了隐藏层拥有10个神经元。
 
 === 前向计算
 #p[
@@ -223,10 +220,10 @@ def backward_with_adam(self, X, y_true, y_pred, beta1=0.9, beta2=0.999, epsilon=
 
 === 与实验一至实验六的相关结果的对比分析
 在保证`lr=0.01, iterations = 500`的情况下：
-#figure(image("images/compare.png", height: 40%), caption: "实验一至实验六Lasso模型优化")
+#figure(image("images/compare.png", height: 25%), caption: "实验一至实验六Lasso模型优化")
 
 #p[
-  通过对比发现，由于神经网络中考虑了每个神经元具有偏置参数（bias），所以最终神经网络对于波士顿房价问题的Loss*更低*，同时，使用神经网络可以获得比普通Lasso模型*更好的收敛速度*。
+  通过对比发现，由于神经网络中考虑了每个神经元具有偏置参数（bias），所以最终神经网络对于波士顿房价问题的Loss更低，同时，使用神经网络可以获得比普通Lasso模型更好的收敛速度。
 ]
 
 == 优化分析
@@ -258,7 +255,7 @@ def sigmoid_derivative(z):
 当`lr=0.001`时：
 #figure(image("images/lr0_001.png"), caption: "Test Loss (MSE): 132.5201")
 
-#p[由此得出，当`lr`设置的过大的时候，*模型无法正常收敛*，当`lr`设置的过小，会*降低模型收敛速度*，而且*在训练轮数过低的情况下会影响模型性能*。]
+#p[由此得出，当`lr`设置的过大的时候，模型无法正常收敛，当`lr`设置的过小，会降低模型收敛速度，而且在训练轮数过低的情况下会影响模型性能。]
 
 === 其他改进方案
 #p[
