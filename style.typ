@@ -120,8 +120,9 @@
   set image(height: 20%)
 
   // figure 样式
-  show figure.where(kind: table): {
+  show figure.where(kind: table): it => {
     set figure.caption(position: top)
+    it
   }
 
   // 设置 supplement 和 body间隔符
