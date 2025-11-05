@@ -109,6 +109,8 @@
 
   // 线
   set line(stroke: 0.5pt)
+  // 表格边框
+  set table(stroke: 0.5pt)
 
   // 下划线
   set underline(offset: 0.2em)
