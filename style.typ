@@ -134,7 +134,7 @@
   )
 
   // 使用术语列表代替简单的键值对显示
-  set terms(separator: "：")
+  set terms(hanging-indent: 0em, separator: "：")
 
   it
 }
