@@ -61,6 +61,7 @@
   // 设置 figure 和公式编号
   show figure: i-figured.show-figure.with(numbering: "1-1")
   show math.equation.where(block: true): i-figured.show-equation.with(numbering: "(1-1)")
+  show heading: i-figured.reset-counters
 
 
   // 3. 主要设置
