@@ -126,17 +126,6 @@
   // 图片
   set image(height: 20%)
 
-  // 行内代码（FIXME: 跨行无法正常显示）
-  show raw.where(block: false): box.with(
-    fill: luma(245),
-    inset: (x: 0.5em),
-    outset: (x: -0.2em, y: 0.3em),
-    radius: 0.3em,
-  )
-
-  // 使用术语列表代替简单的键值对显示
-  set terms(hanging-indent: 0em, separator: "：")
-
   it
 }
 
@@ -145,6 +134,13 @@
 #let title(it) = {
   set align(center)
   text(size: 字号.三号, weight: "bold", it)
+}
+
+// 键值对显示
+#let item(k, v) = {
+  text(weight: "bold", k + "：")
+  h(0.5em)
+  underline(extent: 0.5em, v)
 }
 
 // 缩进段落
@@ -158,10 +154,4 @@
   show terms: indent
   show raw.where(block: true): indent
   it
-}
-
-// 下划线项目
-#let u(it) = {
-  h(0.5em)
-  underline(extent: 0.5em, it)
 }
