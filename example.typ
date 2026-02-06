@@ -7,8 +7,6 @@
 
 #v(1em)
 
-#let item(k, v) = terms.item(k, u(v))
-
 // 设置实验日期
 #let date = datetime.today()
 
