@@ -1,4 +1,4 @@
-#import "@preview/cuti:0.3.0": show-cn-fakebold
+#import "@preview/cuti:0.4.0": show-cn-fakebold
 #import "@preview/codly:1.3.0"
 #import "@preview/i-figured:0.2.4"
 
@@ -31,7 +31,7 @@
   等宽: (
     (name: "Monaspace Neon", covers: "latin-in-cjk"),
     (name: "Consolas", covers: "latin-in-cjk"),
-    "Sarasa Mono SC",
+    "Source Han Sans SC",
     "SimHei",
   ),
 )
@@ -52,8 +52,6 @@
   codly.codly(
     zebra-fill: none,
     display-name: false,
-    number-align: right,
-    number-placement: "outside",
   )
   // plain text 不显示行号
   show raw.where(block: true, lang: none): codly.local.with(number-format: none)
@@ -94,34 +92,48 @@
   // 字体
   set text(font: 字体.宋体, size: 字号.小四, lang: "zh", top-edge: "ascender", bottom-edge: "descender")
   // 代码字体
-  show raw: set text(font: 字体.等宽, top-edge: "cap-height", bottom-edge: "baseline")
+  show raw: set text(font: 字体.等宽, lang: "en", top-edge: "cap-height", bottom-edge: "baseline")
   show raw.where(block: true): set text(size: 10pt)
+  // caption 字体
+  show figure.caption: set text(size: 字号.五号)
+  // 表格字体
+  show table: set text(size: 字号.五号)
 
   // 行距和段间距
   set par(leading: 0.65em, spacing: 1.2em)
   show outline.entry: set block(above: 0.65em / 2)
 
   // 标题
+  let heading-size = (字号.三号, 字号.四号, 字号.小四)
   show heading: it => {
-    let heading-size = (字号.三号, 字号.四号, 字号.小四)
     set text(size: array-at(heading-size, it.level))
     it
   }
   set heading(numbering: "1.1", supplement: "节")
+  // 目录标题
+  set outline(title: text("目录", size: heading-size.at(0)))
+
+  // 目录条目
+  show outline.entry.where(level: 1): set text(weight: "bold")
 
   // 线
-  set line(stroke: 0.5pt)
-  // 表格边框
-  set table(stroke: 0.5pt)
+  set line(stroke: 0.6pt)
   // 下划线
-  set underline(stroke: 0.5pt, offset: 0.2em)
+  set underline(stroke: 0.6pt, offset: 0.2em)
 
   // figure
+  set figure.caption(separator: h(0.5em))
   // 设置表格的 caption 在其上方显示
   show figure.where(kind: table): it => {
     set figure.caption(position: top)
     it
   }
+
+  // 表格
+  set table(stroke: (x, y) => (
+    top: if y == 0 { 0.08em } else if y == 1 { 0.05em } else { 0pt },
+    bottom: 0.08em,
+  ))
 
   // 图片
   set image(height: 20%)
@@ -129,11 +141,12 @@
   it
 }
 
+
 // 4. 设置快捷函数
 // 标题
 #let title(it) = {
   set align(center)
-  text(size: 字号.三号, weight: "bold", it)
+  text(it, size: 字号.三号, weight: "bold")
 }
 
 // 键值对显示
@@ -143,15 +156,28 @@
   underline(extent: 0.5em, v)
 }
 
-// 缩进段落
-#let p(it, all-indent: true) = {
-  set par(first-line-indent: (amount: 2em, all: all-indent))
+// 缩进
+#let indent-scope(it, amount: 2em) = {
+  set par(first-line-indent: (amount: amount, all: true))
+  set enum(indent: amount)
+  set list(indent: amount)
+  set terms(indent: amount)
 
-  // 为列表、代码等添加缩进
-  let indent = block.with(inset: (left: 2em))
-  show enum: indent
-  show list: indent
-  show terms: indent
-  show raw.where(block: true): indent
+  it
+}
+
+// 取消缩进快捷函数
+#let noindent(it) = {
+  indent-scope(it, amount: 0pt)
+}
+
+// 设置正文样式
+#let body(it, indent: true) = {
+  it = if indent {
+    indent-scope(it)
+  } else {
+    noindent(it)
+  }
+
   it
 }
