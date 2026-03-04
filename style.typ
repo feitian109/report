@@ -130,7 +130,6 @@
   set underline(stroke: 0.6pt, offset: 0.2em)
 
   // figure
-  set figure.caption(separator: h(0.5em))
   // 设置表格的 caption 在其上方显示
   show figure.where(kind: table): it => {
     set figure.caption(position: top)
