@@ -110,6 +110,14 @@
     it
   }
   set heading(numbering: "1.1", supplement: "节")
+  show ref: it => {
+    let hd = heading
+    let el = it.element
+    if el == none or el.func() != hd { return it }
+
+    link(el.location(), numbering(el.numbering, ..counter(hd).at(el.location())))
+    el.supplement
+  }
   // 目录标题
   set outline(title: text("目录", size: heading-size.at(0)))
 
