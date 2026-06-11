@@ -142,9 +142,6 @@
     bottom: 0.08em,
   ))
 
-  // 图片
-  set image(height: 20%)
-
   it
 }
 
@@ -168,7 +165,7 @@
   set par(first-line-indent: (amount: amount, all: true))
   set enum(indent: amount)
   set list(indent: amount)
-  set terms(indent: amount)
+  set terms(indent: amount, hanging-indent: 0em)
 
   it
 }
