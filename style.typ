@@ -93,7 +93,7 @@
   set text(font: 字体.宋体, size: 字号.小四, lang: "zh", top-edge: "ascender", bottom-edge: "descender")
   // 代码字体
   show raw: set text(font: 字体.等宽, lang: "en", top-edge: "cap-height", bottom-edge: "baseline")
-  show raw.where(block: true): set text(size: 10pt)
+  show raw.where(block: true): set text(size: 9pt)
   // caption 字体
   show figure.caption: set text(size: 字号.五号)
   // 表格字体
