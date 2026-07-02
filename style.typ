@@ -1,6 +1,5 @@
 #import "@preview/cuti:0.4.0": show-cn-fakebold
-#import "@preview/codly:1.3.0"
-#import "@preview/i-figured:0.2.4"
+#import "@preview/zebraw:0.6.3": *
 
 // 0. 设置字号、字体常量
 #let 字号 = (
@@ -42,24 +41,19 @@
     arr.at(calc.min(pos, arr.len()) - 1)
   }
 
+  // 获取当前一级段落编号
+  let sec-counter = counter(heading.where(level: 1))
+
 
   // 2. 第三方包设置
   // 启用伪粗体
   show: show-cn-fakebold
 
-  // 设置 codly 格式
-  show: codly.codly-init.with()
-  codly.codly(
-    zebra-fill: none,
-    display-name: false,
-  )
+  // 设置 zebraw 格式
+  show: zebraw
+  show: zebraw-init.with(lang: false, radius: 0pt)
   // plain text 不显示行号
-  show raw.where(block: true, lang: none): codly.local.with(number-format: none)
-
-  // 设置 figure 和公式编号
-  show figure: i-figured.show-figure.with(numbering: "1-1")
-  show math.equation.where(block: true): i-figured.show-equation.with(numbering: "(1-1)")
-  show heading: i-figured.reset-counters
+  show raw.where(block: true, lang: none): zebraw.with(numbering: false)
 
 
   // 3. 主要设置
@@ -88,6 +82,24 @@
       counter(page).display("1 / 1", both: true)
     },
   )
+
+  // 计数器
+  // 计数重置
+  show heading.where(level: 1): it => {
+    counter(figure).update(0)
+    counter(math.equation).update(0)
+    it
+  }
+
+  // figure 计数
+  set figure(numbering: n => {
+    numbering("1-1", sec-counter.get().first(), n)
+  })
+
+  // 公式计数
+  set math.equation(numbering: n => {
+    numbering("(1-1)", sec-counter.get().first(), n)
+  })
 
   // 字体
   set text(font: 字体.宋体, size: 字号.小四, lang: "zh", top-edge: "ascender", bottom-edge: "descender")
@@ -172,7 +184,7 @@
 
 // 取消缩进快捷函数
 #let noindent(it) = {
-  indent-scope(it, amount: 0pt)
+  indent-scope(it, amount: 0em)
 }
 
 // 设置正文样式

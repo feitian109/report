@@ -4,8 +4,8 @@
 
 <table>
   <tr>
-    <td><img src=".github/resources/preview1.png" alt="预览 1"></td>
-    <td><img src=".github/resources/preview2.png" alt="预览 2"></td>
+    <td><img src=".github/resources/preview1.jpg" alt="预览 1"></td>
+    <td><img src=".github/resources/preview2.jpg" alt="预览 2"></td>
   </tr>
 </table>
 
@@ -16,9 +16,9 @@
 - 默认使用三线表表格
 - 奇偶页不同页眉，以及简单页码
 - 默认开启缩进，可以使用 `no-indent` 函数临时关闭缩进
+- 提供符合中文习惯的图片、表格、公式编号，如 2-1（第 2 章的第 1 次引用）
 - 使用 [Cuti](https://typst.app/universe/package/cuti) 提供无字重字体的伪粗体（如宋体）
-- 使用 [Codly](https://typst.app/universe/package/codly) 提供高级代码块支持，默认支持行号显示
-- 使用 [i-figured](https://typst.app/universe/package/i-figured) 提供符合中文习惯的图片、表格、公式编号，并可以正常引用
+- 使用 [Zebraw](https://typst.app/universe/package/zebraw) 提供代码块高级支持
 
 ## License
 
