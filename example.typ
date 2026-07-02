@@ -62,7 +62,7 @@ def example():
 
 = 还是一级标题
 
-表格测试（@tbl:tbl-test）：
+表格测试（@tbl-test）：
 
 #figure(
   table(
@@ -74,7 +74,7 @@ def example():
   caption: "测试表格",
 ) <tbl-test>
 
-公式测试（@eqt:eq-test）：
+公式测试（@eq-test）：
 
 $ E = m c^2 $ <eq-test>
 
