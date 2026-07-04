@@ -53,7 +53,9 @@
   show: zebraw
   show: zebraw-init.with(lang: false, radius: 0pt)
   // plain text 不显示行号
-  show raw.where(block: true, lang: none): zebraw.with(numbering: false)
+  let numbering-off = zebraw.with(numbering: false)
+  show raw.where(block: true, lang: none): numbering-off
+  show raw.where(block: true, lang: "txt"): numbering-off
 
 
   // 3. 主要设置
