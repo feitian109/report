@@ -1,7 +1,7 @@
 #import "@preview/cuti:0.4.0": show-cn-fakebold
 #import "@preview/zebraw:0.6.3": *
 
-// 0. 设置字号、字体常量
+// 0. 设置常量
 #let 字号 = (
   初号: 42pt,
   小初: 36pt,
@@ -23,17 +23,20 @@
 )
 
 #let 字体 = (
-  宋体: ((name: "libertinus serif", covers: "latin-in-cjk"), "SimSun"),
+  宋体: ((name: "libertinus serif", covers: "latin-in-cjk"), "SimSun", "Noto Serif CJK SC"),
   黑体: ((name: "Arial", covers: "latin-in-cjk"), "SimHei"),
   楷体: ((name: "libertinus serif", covers: "latin-in-cjk"), "KaiTi"),
   仿宋: ((name: "libertinus serif", covers: "latin-in-cjk"), "FangSong"),
   等宽: (
-    (name: "Monaspace Neon", covers: "latin-in-cjk"),
+    "Sarasa Mono SC",
+    "Noto Sans Mono CJK SC",
     (name: "Consolas", covers: "latin-in-cjk"),
-    "Source Han Sans SC",
     "SimHei",
   ),
 )
+
+// 行间距
+#let LEADING = 0.65em
 
 #let style(it) = {
   // 1. 辅助函数
@@ -43,7 +46,6 @@
 
   // 获取当前一级段落编号
   let sec-counter = counter(heading.where(level: 1))
-
 
   // 2. 第三方包设置
   // 启用伪粗体
@@ -56,7 +58,6 @@
   let numbering-off = zebraw.with(numbering: false)
   show raw.where(block: true, lang: none): numbering-off
   show raw.where(block: true, lang: "txt"): numbering-off
-
 
   // 3. 主要设置
   // 页面
@@ -116,8 +117,8 @@
   show table: set text(size: 字号.五号)
 
   // 段落设置
-  set par(leading: 0.65em, spacing: 1.2em, justify: true)
-  show outline.entry: set block(above: 0.65em / 2)
+  set par(leading: LEADING, spacing: LEADING, justify: true)
+  show outline.entry: set block(above: LEADING / 2)
 
   // 标题
   let heading-size = (字号.三号, 字号.四号, 字号.小四)
@@ -182,7 +183,6 @@
   set enum(indent: amount)
   set list(indent: amount)
   set terms(indent: amount, hanging-indent: 0em)
-
   it
 }
 
@@ -198,6 +198,5 @@
   } else {
     noindent(it)
   }
-
   it
 }
