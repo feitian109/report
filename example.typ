@@ -3,12 +3,10 @@
 #import "@preview/kouhu:0.2.0": kouhu
 #show: style
 
-// title 和 description 会被显示在页眉
+// 设置文档元信息，title 和 description 会被显示在页眉中
 #set document(title: "文档的类型（如：✕✕课程实验报告）", author: "✕✕✕", description: "文档的主题（如：✕✕实验）")
 
 #title[我是标题]
-
-#v(1em)
 
 // 设置实验日期
 #let date = datetime.today()
@@ -16,8 +14,8 @@
 // 设置课程和个人信息
 #grid(
   columns: (1fr, 1fr, 1fr),
-  row-gutter: 1em,
-  item("课程名称", "✕✕课程"), [], item("实验日期", date.display()),
+  row-gutter: LEADING,
+  grid.cell(item("课程名称", "✕✕课程"), colspan: 2), item("实验日期", date.display()),
   item("班级", "✕✕✕✕"), item("姓名", "✕✕✕"), item("学号", "✕✕✕✕✕"),
 )
 
@@ -35,6 +33,8 @@
 == 二级标题
 
 === 三级标题 <section>
+
+#med-kouhu
 
 #med-kouhu
 
@@ -56,7 +56,7 @@ def example():
     print("Hello, World!")
 
 """
-使用了 codly 渲染
+使用了 zebraw 渲染代码块
 """
 ```
 

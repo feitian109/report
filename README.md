@@ -4,8 +4,8 @@
 
 <table>
   <tr>
-    <td><img src=".github/resources/preview1.jpg" alt="预览 1"></td>
-    <td><img src=".github/resources/preview2.jpg" alt="预览 2"></td>
+    <td><img src=".github/assets/preview-1.png" alt="预览 1"></td>
+    <td><img src=".github/assets/preview-2.png" alt="预览 2"></td>
   </tr>
 </table>
 
