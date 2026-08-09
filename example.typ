@@ -67,7 +67,7 @@ def example():
 #figure(
   table(
     columns: 2,
-    [表头1], [表头2],
+    table.header([表头1], [表头2]),
     [数据1], [数据2],
     [数据3], [数据4],
   ),

@@ -28,7 +28,7 @@
   楷体: ((name: "libertinus serif", covers: "latin-in-cjk"), "KaiTi"),
   仿宋: ((name: "libertinus serif", covers: "latin-in-cjk"), "FangSong"),
   等宽: (
-    "Sarasa Mono SC",
+    "Sarasa Mono Slab SC",
     "Noto Sans Mono CJK SC",
     (name: "Consolas", covers: "latin-in-cjk"),
     "SimHei",
@@ -110,7 +110,7 @@
   set text(font: 字体.宋体, size: 字号.小四, lang: "zh", top-edge: "ascender", bottom-edge: "descender")
   // 代码字体
   show raw: set text(font: 字体.等宽, lang: "en", top-edge: "cap-height", bottom-edge: "baseline")
-  show raw.where(block: true): set text(size: 9pt)
+  show raw.where(block: true): set text(size: 10pt)
   // caption 字体
   show figure.caption: set text(size: 字号.五号)
   // 表格字体
@@ -135,8 +135,6 @@
     link(el.location(), numbering(el.numbering, ..counter(hd).at(el.location())))
     el.supplement
   }
-  // 目录标题
-  set outline(title: text("目录", size: heading-size.at(0)))
 
   // 目录条目
   show outline.entry.where(level: 1): set text(weight: "bold")
@@ -148,16 +146,26 @@
 
   // figure
   // 设置表格的 caption 在其上方显示
-  show figure.where(kind: table): it => {
-    set figure.caption(position: top)
-    it
-  }
+  show figure.where(kind: table): set figure.caption(position: top)
+  // 三线表
+  set table(stroke: none)
+  show table: it => {
+    let (children: body, ..args) = it.fields()
+    let new-children = ()
+    for c in body {
+      // 存在 hline 就放弃
+      if c.func() == table.hline {
+        return it
+      }
 
-  // 表格
-  set table(stroke: (x, y) => (
-    top: if y == 0 { 0.08em } else if y == 1 { 0.05em } else { 0em },
-    bottom: 0.08em,
-  ))
+      new-children.push(c)
+      if c.func() == table.header {
+        new-children.push(table.hline(stroke: 0.05em))
+      }
+    }
+
+    table(..args, table.hline(stroke: 0.08em), ..new-children, table.hline(stroke: 0.08em))
+  }
 
   it
 }
