@@ -36,7 +36,7 @@
 )
 
 // 行间距
-#let LEADING = 0.65em
+#let LEADING = 1.25em / 2
 
 #let style(it) = {
   // 1. 辅助函数
@@ -62,10 +62,10 @@
   // 3. 主要设置
   // 页面
   set page(
-    margin: (x: 1.5cm, y: 2cm),
+    margin: (x: 3.17cm, y: 2.54cm),
     paper: "a4",
     // 页眉
-    header: context {
+    /*header: context {
       // 通过文档元信息设置奇偶页不同页眉
       let header = ""
       if calc.odd(counter(page).get().at(0)) {
@@ -77,7 +77,8 @@
       set text(size: 字号.小五)
       set align(center)
       stack(header, v(0.5em), line(length: 100%))
-    },
+    }, */
+    header: none,
     // 页脚
     footer: context {
       set text(size: 字号.小五)
@@ -121,12 +122,14 @@
   show outline.entry: set block(above: LEADING / 2)
 
   // 标题
-  let heading-size = (字号.三号, 字号.四号, 字号.小四)
+  let heading-size = (字号.小四,)
   show heading: it => {
     set text(size: array-at(heading-size, it.level))
+    set block(above: LEADING, below: LEADING)
     it
   }
   set heading(numbering: "1.1", supplement: "节")
+  show heading.where(level: 1): set heading(numbering: "一、")
   show ref: it => {
     let hd = heading
     let el = it.element
@@ -175,7 +178,7 @@
 // 标题
 #let title(it) = {
   set align(center)
-  text(it, size: 字号.三号, weight: "bold")
+  text(it, size: 字号.小三, weight: "bold")
 }
 
 // 键值对显示
