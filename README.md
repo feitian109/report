@@ -20,6 +20,10 @@
 - 使用 [Cuti](https://typst.app/universe/package/cuti) 提供无字重字体的伪粗体（如宋体）
 - 使用 [Zebraw](https://typst.app/universe/package/zebraw) 提供代码块高级支持
 
+## For Agents
+
+如果你是 Coding Agent，请参考 [AGENTS.md](AGENTS.md) 获取更多使用模板的提示。
+
 ## License
 
 MIT License
