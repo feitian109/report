@@ -11,14 +11,7 @@
 
 ## 特性
 
-- 开箱即用，配置简单，所有样式代码均存放在 [style.typ](style.typ)
-- 包含一个简单的目录
-- 默认使用三线表表格
-- 奇偶页不同页眉，以及简单页码
-- 默认开启缩进，可以使用 `no-indent` 函数临时关闭缩进
-- 提供符合中文习惯的图片、表格、公式编号，如 2-1（第 2 章的第 1 次引用）
-- 使用 [Cuti](https://typst.app/universe/package/cuti) 提供无字重字体的伪粗体（如宋体）
-- 使用 [Zebraw](https://typst.app/universe/package/zebraw) 提供代码块高级支持
+- 当前模板专为群体智能计算课程设计。
 
 ## For Agents
 

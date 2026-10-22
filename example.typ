@@ -6,22 +6,26 @@
 // 设置文档元信息，title 和 description 会被显示在页眉中
 #set document(title: "文档的类型（如：XX课程实验报告）", author: "XXX", description: "文档的主题（如：XX实验）")
 
-#title[我是标题]
+#title[实验一#h(1.5em)#underline(extent: 0.5em)[实验名称]]
 
 // 设置实验日期
 // 可以修改为 datetime(year: 20XX, month: XX, day: XX) 来确保日期不会变动
 #let date = datetime.today()
 
+#v(0.5em)
+
 // 设置课程和个人信息
 #grid(
   columns: (1fr, 1fr, 1fr),
-  row-gutter: LEADING,
+  row-gutter: 1em,
   grid.cell(item("课程名称", "XX课程"), colspan: 2), item("实验日期", date.display()),
   item("班级", "XXXX"), item("姓名", "XXX"), item("学号", "XXXXX"),
 )
 
+#v(1.5em)
+
 // 显示目录
-#outline()
+// #outline()
 
 // 设置正文样式
 #show: body.with(indent: true)
