@@ -24,13 +24,13 @@
 
 #let 字体 = (
   宋体: ((name: "libertinus serif", covers: "latin-in-cjk"), "SimSun", "Noto Serif CJK SC"),
-  黑体: ((name: "Arial", covers: "latin-in-cjk"), "SimHei"),
+  黑体: ((name: "Arial", covers: "latin-in-cjk"), "SimHei", "Sarasa Gothic SC", "Noto Sans CJK SC"),
   楷体: ((name: "libertinus serif", covers: "latin-in-cjk"), "KaiTi"),
   仿宋: ((name: "libertinus serif", covers: "latin-in-cjk"), "FangSong"),
   等宽: (
-    "Sarasa Mono Slab SC",
-    "Noto Sans Mono CJK SC",
-    (name: "Consolas", covers: "latin-in-cjk"),
+    "DejaVu Sans Mono",
+    "Sarasa Mono SC",
+    "Noto Sans CJK SC",
     "SimHei",
   ),
 )
