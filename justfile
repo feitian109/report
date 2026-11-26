@@ -1,6 +1,6 @@
 assets:
     mkdir -p .github/assets
-    typst compile example.typ --format png .github/assets/preview-{p}.png
+    typst compile example.typ --format png --pages '1-2' .github/assets/preview-{p}.png
     typst compile example.typ example.pdf
 
 filter:
