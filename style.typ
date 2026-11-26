@@ -38,6 +38,10 @@
 // 行间距
 #let LEADING = 0.65em
 
+// 线粗
+#let STROKE = 0.05em
+#let STROKE-BOLD = 0.08em
+
 #let style(it) = {
   // 1. 辅助函数
   let array-at(arr, pos) = {
@@ -63,6 +67,7 @@
   // 页面
   set page(
     margin: (x: 1.5cm, y: 2cm),
+    // margin: (x: 3.17cm, y: 2.54cm), // Word 页边距
     paper: "a4",
     // 页眉
     header: context {
@@ -122,27 +127,31 @@
 
   // 标题
   let heading-size = (字号.三号, 字号.四号, 字号.小四)
+  let heading-weight = ("bold",)
+  let heading-numbering = ("1.1",)
   show heading: it => {
-    set text(size: array-at(heading-size, it.level))
+    set text(size: array-at(heading-size, it.level), weight: array-at(heading-weight, it.level))
     it
   }
-  set heading(numbering: "1.1", supplement: "节")
+  set heading(
+    supplement: "节",
+    numbering: (..nums) => numbering(array-at(heading-numbering, nums.pos().len()), ..nums),
+  )
+  // 让标题的 supplement 显示在 numbering 后
   show ref: it => {
-    let hd = heading
     let el = it.element
-    if el == none or el.func() != hd { return it }
-
-    link(el.location(), numbering(el.numbering, ..counter(hd).at(el.location())))
+    if el == none or el.func() != heading { return it }
+    link(el.location(), numbering(el.numbering, ..counter(heading).at(el.location())))
     el.supplement
   }
 
-  // 目录条目
+  // 目录
   show outline.entry.where(level: 1): set text(weight: "bold")
 
   // 线
-  set line(stroke: 0.05em)
+  set line(stroke: STROKE)
   // 下划线
-  set underline(stroke: 0.05em, offset: 0.2em)
+  set underline(stroke: STROKE, offset: 0.2em)
 
   // figure
   // 设置表格的 caption 在其上方显示
@@ -157,14 +166,12 @@
       if c.func() == table.hline {
         return it
       }
-
       new-children.push(c)
       if c.func() == table.header {
-        new-children.push(table.hline(stroke: 0.05em))
+        new-children.push(table.hline(stroke: STROKE))
       }
     }
-
-    table(..args, table.hline(stroke: 0.08em), ..new-children, table.hline(stroke: 0.08em))
+    table(..args, table.hline(stroke: STROKE-BOLD), ..new-children, table.hline(stroke: STROKE-BOLD))
   }
 
   it
