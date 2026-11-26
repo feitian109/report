@@ -1,82 +1,161 @@
 #import "style.typ": *
-// 中文乱数假文
-#import "@preview/kouhu:0.2.0": kouhu
 #show: style
 
-// 设置文档元信息，title 和 description 会被显示在页眉中
-#set document(title: "文档的类型（如：XX课程实验报告）", author: "XXX", description: "文档的主题（如：XX实验）")
-
-#title[我是标题]
-
-// 设置实验日期
-// 可以修改为 datetime(year: 20XX, month: XX, day: XX) 来确保日期不会变动
-#let date = datetime.today()
-
-// 设置课程和个人信息
-#grid(
-  columns: (1fr, 1fr, 1fr),
-  row-gutter: LEADING,
-  grid.cell(item("课程名称", "XX课程"), colspan: 2), item("实验日期", date.display()),
-  item("班级", "XXXX"), item("姓名", "XXX"), item("学号", "XXXXX"),
-)
-
-// 显示目录
-#outline()
+// 设置文档元信息
+#set document(title: "边缘智能计算综述调研", author: "XXX", description: "文档的主题（如：XX题目）")
 
 // 设置正文样式
 #show: body.with(indent: true)
 
-#let small-kouhu = kouhu(length: 30)
-#let med-kouhu = kouhu(length: 100)
+// 注意：下面正文中提到的格式要求已经由模板正确设置了，不需要再额外调整
 
-= 一级标题
+// 封面
+#{
+  set align(center)
+  v(5em)
+  image("assets/logo.png")
+  text(font: 字体.黑体, size: 32pt, weight: "bold")[大 作 业 报 告 书]
+  v(9em)
 
-== 二级标题
+  box(width: 90%, grid(
+    row-gutter: 1.2em,
+    item("题　目", "（自拟）"),
+    item("课　程", "边缘智能计算"),
+    item("学　院", "人工智能与计算机学院"),
+    item("专　业", "人工智能系"),
+    item("班　级", ""),
+    item("姓　名", ""),
+    item("学　号", ""),
+    item("授课老师", ""),
+  ))
+}
+#pagebreak()
 
-=== 三级标题 <section>
 
-#med-kouhu
+// 中文摘要
+#{
+  set align(center)
+  title("XXX的综述(二号宋体)")
+  text(size: 字号.小五)[(江南大学人工智能与计算机学院)]
+}
+#{
+  set par(spacing: 1.5em)
+  show: noindent
 
-#med-kouhu
+  text[摘要：]
+  [XXX (五号宋体)]
+  parbreak()
 
-1. #small-kouhu
-2. #small-kouhu
+  text[关键字：]
+  [XXX (五号宋体)]
+}
+#pagebreak()
 
-- #small-kouhu
-- #small-kouhu
 
-/ 某术语: 我是解释
+// 英文摘要
+#{
+  set align(center)
+  title("Title in English (二号宋体)")
+  text(size: 字号.小五)[(Jiangnan University, School of Artificial Intelligence and Computer Science)]
+}
+#{
+  set par(spacing: 1.5em)
+  show: noindent
 
-/ 又一个术语: 我是解释
+  text[Abstract：]
+  [XXX (五号宋体)]
+  parbreak()
 
-下面是代码块：
-#raw(lorem(30), block: true)
+  text[Keywords：]
+  [XXX (五号宋体)]
+}
+#pagebreak()
 
-```py
-def example():
-    print("Hello, World!")
 
-"""
-使用了 zebraw 渲染代码块
-"""
-```
+// 目录
+#outline()
+#pagebreak()
 
-= 还是一级标题
 
-表格测试（@tbl-test）：
+// 正文
+= 引言
 
-#figure(
-  table(
-    columns: 2,
-    table.header([表头1], [表头2]),
-    [数据1], [数据2],
-    [数据3], [数据4],
-  ),
-  caption: "测试表格",
-) <tbl-test>
+== 二级标题（可选）
 
-公式测试（@eq-test）：
+\
 
-$ E = m c^2 $ <eq-test>
+XXX (正文五号宋体)
 
-章节引用，@section。
+\
+
+可以包含以下内容（供参考）：
+
++ 研究背景：介绍研究课题的整体背景，说明选题的起因或来源。
++ 研究目的：明确本次调研的目标，指明报告的核心问题。
++ 综述结构：简述报告的章节安排，为读者提供阅读导向。
+
+= 背景与意义
+
+== 二级标题（可选）
+
+\
+
+XXX (正文五号宋体)
+
+\
+
+可以包含以下内容（供参考）：
+
++ 课题背景：介绍课题相关领域的发展历程或现状，强调其重要性。
++ 研究意义：从理论意义和实际应用两个方面，说明本课题的研究价值和现实意义。
++ 关键问题：明确当前研究中亟待解决的问题，为后续分析奠定基础。
+
+= 研究现状
+
+== 二级标题（可选）
+
+\
+
+XXX (正文五号宋体)
+
+\
+
+可以包含以下内容（供参考）：
+
++ 国内外研究现状：对比国内外在该领域的研究进展和成果，注重引用权威文献。
++ 代表性工作总结：详细分析几项具有代表性的研究工作，包括其方法、结论和意义。
++ 研究方法对比：列出相关研究中使用的不同方法或技术的优缺点对比（可配表格）。
+
+= 现状分析
+
+== 二级标题（可选）
+
+\
+
+XXX (正文五号宋体)
+
+\
+
+*本章节为加分项！*可以包含以下内容（供参考）：
+
++ 优势与不足：结合调研结果，分析当前研究的优势、局限性和不足之处。
++ 问题讨论：对调研中发现的关键问题或争议点进行总结，并提出个人见解。
++ 图表展示：适当使用图表（如统计图、对比表）清晰展示分析结果
+
+= 总结与展望
+
+== 二级标题（可选）
+
+\
+
+XXX (正文五号宋体)
+
+\
+
+可以包含以下内容（供参考）：
+
++ 研究总结：简要归纳报告的主要研究成果和贡献。
++ 未来展望：结合研究领域的最新发展，提出未来研究方向或应用场景的可能性。
+
+// 实际填写时应该去除掉 full: true，保证文献在正文被引用过
+#bibliography("ref.bib", full: true, style: "gb-7714-2015-numeric")

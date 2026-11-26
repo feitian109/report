@@ -23,8 +23,9 @@
 )
 
 #let 字体 = (
-  宋体: ((name: "libertinus serif", covers: "latin-in-cjk"), "SimSun", "Noto Serif CJK SC"),
-  黑体: ((name: "Arial", covers: "latin-in-cjk"), "SimHei", "Sarasa Gothic SC", "Noto Sans CJK SC"),
+  宋体: ("SimSun", "Noto Serif CJK SC"),
+  目录: ((name: "libertinus serif", covers: "latin-in-cjk"), "SimSun", "Noto Serif CJK SC"),
+  黑体: ("SimHei", "Sarasa Gothic SC", "Noto Sans CJK SC"),
   楷体: ((name: "libertinus serif", covers: "latin-in-cjk"), "KaiTi"),
   仿宋: ((name: "libertinus serif", covers: "latin-in-cjk"), "FangSong"),
   等宽: (
@@ -35,8 +36,12 @@
   ),
 )
 
+// 线粗
+#let LINE-STROKE = 0.05em
+#let LINE-STROKE-BOLD = 0.08em
+
 // 行间距
-#let LEADING = 0.65em
+#let LEADING = 0.5em
 
 #let style(it) = {
   // 1. 辅助函数
@@ -62,16 +67,16 @@
   // 3. 主要设置
   // 页面
   set page(
-    margin: (x: 1.5cm, y: 2cm),
+    margin: (x: 3.17cm, y: 2.54cm),
     paper: "a4",
     // 页眉
     header: context {
       // 通过文档元信息设置奇偶页不同页眉
       let header = ""
       if calc.odd(counter(page).get().at(0)) {
-        header = document.title
+        header = "综述调研"
       } else {
-        header = document.description
+        header = "综述调研"
       }
 
       set text(size: 字号.小五)
@@ -82,7 +87,7 @@
     footer: context {
       set text(size: 字号.小五)
       set align(center)
-      counter(page).display("1 / 1", both: true)
+      counter(page).display(n => if n == 1 {} else { n })
     },
   )
 
@@ -107,7 +112,7 @@
   })
 
   // 字体
-  set text(font: 字体.宋体, size: 字号.小四, lang: "zh", top-edge: "ascender", bottom-edge: "descender")
+  set text(font: 字体.宋体, size: 字号.五号, lang: "zh", top-edge: "ascender", bottom-edge: "descender")
   // 代码字体
   show raw: set text(font: 字体.等宽, lang: "en", top-edge: "cap-height", bottom-edge: "baseline")
   show raw.where(block: true): set text(size: 10pt)
@@ -121,12 +126,24 @@
   show outline.entry: set block(above: LEADING / 2)
 
   // 标题
-  let heading-size = (字号.三号, 字号.四号, 字号.小四)
+  let heading-size = (字号.小三, 字号.小四, 字号.五号)
+  let heading-weight = ("bold", "regular")
+  let heading-numbering = ("一、", "1.1")
   show heading: it => {
-    set text(size: array-at(heading-size, it.level))
+    set text(size: array-at(heading-size, it.level), weight: array-at(heading-weight, it.level), font: 字体.黑体)
     it
   }
-  set heading(numbering: "1.1", supplement: "节")
+  set heading(
+    supplement: "节",
+    numbering: (..numbers) => {
+      let numbers = numbers.pos()
+      let level = numbers.len()
+      numbering(
+        array-at(heading-numbering, level),
+        ..numbers,
+      )
+    },
+  )
   show ref: it => {
     let hd = heading
     let el = it.element
@@ -136,13 +153,15 @@
     el.supplement
   }
 
-  // 目录条目
-  show outline.entry.where(level: 1): set text(weight: "bold")
+  // 目录
+  set outline(title: text(size: 字号.三号, fill: rgb("#0F4761"), weight: "light")[目录])
+  show outline.entry: set text(font: 字体.目录)
+  // show outline.entry.where(level: 1): set text(weight: "bold")
 
   // 线
-  set line(stroke: 0.05em)
+  set line(stroke: LINE-STROKE)
   // 下划线
-  set underline(stroke: 0.05em, offset: 0.2em)
+  set underline(stroke: LINE-STROKE, offset: 0.2em)
 
   // figure
   // 设置表格的 caption 在其上方显示
@@ -160,12 +179,15 @@
 
       new-children.push(c)
       if c.func() == table.header {
-        new-children.push(table.hline(stroke: 0.05em))
+        new-children.push(table.hline(stroke: LINE-STROKE))
       }
     }
 
-    table(..args, table.hline(stroke: 0.08em), ..new-children, table.hline(stroke: 0.08em))
+    table(..args, table.hline(stroke: LINE-STROKE-BOLD), ..new-children, table.hline(stroke: LINE-STROKE-BOLD))
   }
+
+  // 列表
+  set enum(numbering: "1) ")
 
   it
 }
@@ -175,14 +197,17 @@
 // 标题
 #let title(it) = {
   set align(center)
-  text(it, size: 字号.三号, weight: "bold")
+  text(it, size: 字号.二号, weight: "bold")
 }
 
 // 键值对显示
 #let item(k, v) = {
-  text(weight: "bold", k + "：")
-  h(0.5em)
-  underline(extent: 0.5em, v)
+  set text(size: 字号.小二)
+  grid(
+    columns: 2,
+    column-gutter: 1em,
+    text(weight: "bold", k + "："), rect(width: 100%, stroke: (bottom: LINE-STROKE), inset: 0em, v),
+  )
 }
 
 // 缩进
